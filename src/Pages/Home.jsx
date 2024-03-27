@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../Components/Card'
 import axios from 'axios'
+import { useProductStates } from '../Context'
 
 const Home = () => {
-    const [list, setList] = useState([])
 
-    useEffect(() => {
-        axios('https://fakestoreapi.com/products')
-        .then(res => setList(res.data))
-    }, [])
-
+  const {state} = useProductStates()
 
   return (
     <div>
-        {list.map((producto) => <Card key={producto.id} item={producto}/>)}
+        {state.list.map((producto) => <Card key={producto.id} item={producto}/>)}
     </div>
   )
 }

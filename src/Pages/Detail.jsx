@@ -15,7 +15,7 @@ const Detail = () => {
     
   return (
     <div>
-        <img src={product.image} alt="" />
+        <img src={product.image} alt="" width={200}/>
         <h3>{product.title}</h3>
         <h4>${product.price}</h4>
         <p>{product.description}</p>
