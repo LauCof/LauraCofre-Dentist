@@ -1,25 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useProductStates } from '../Context'
+import { useDentistStates } from '../Context'
 
 const Card = ({item}) => {
-    const {image, title, price} = item
-    const {dispatch} = useProductStates()
+    const {user, username, id} = item
+    const {dispatch} = useDentistStates()
 
-    const addCart = () => {
-      //Esto es extra
-      // if(ya existe dicho producto){
-      //   dispatch('DELETE_CART', payload: item.id)
-      // } else {
-        dispatch({type: 'ADD_CART', payload: item})
+    const addFavs = () => {
+      dispatch({type: 'ADD_FAVS', payload: item})
     }
     return (
     <div>
-        <img src={image} alt="" width={200}/>
-        <h3>{title}</h3>
-        <h4>${price}</h4>
-        <Link to={'/detail/' + item.id}>Ver detalle</Link>
-        <button onClick={addCart}>🛒</button>
+        <img src= "./images/doctor.jpg" alt="dentista" width={200}/>
+        <h3>{user}</h3>
+        <h4>{username}</h4>
+        <h4>{id}</h4>
+        <Link to={'/detail/' + item.id}>Ver dentista</Link>
+        <button onClick={addFavs}>⭐</button>
     </div>
   )
 }

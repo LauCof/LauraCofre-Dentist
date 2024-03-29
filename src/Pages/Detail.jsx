@@ -3,23 +3,28 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 const Detail = () => {
-    const [product, setProduct] = useState({})
+    const [dentist, setDentist] = useState({})
     const params = useParams()
     console.log(params)
     
     useEffect(() => {
-        axios('https://fakestoreapi.com/products/'+params.id)
-        .then(res => setProduct(res.data))
+        axios('https://jsonplaceholder.typicode.com/users/'+params.id)
+        .then(res => setDentist(res.data))
         .catch(err => console.log(err))
     }, [])
     
   return (
+    <>
+    <h1>Detail Dentist id </h1>
+
     <div>
-        <img src={product.image} alt="" width={200}/>
-        <h3>{product.title}</h3>
-        <h4>${product.price}</h4>
-        <p>{product.description}</p>
+        <h3>{dentist.name}</h3>
+        <h4>{dentist.email}</h4>
+        <h4>{dentist.phone}</h4>
+        <h4>{dentist.website}</h4>
     </div>
+    </>
+    
   )
 }
 

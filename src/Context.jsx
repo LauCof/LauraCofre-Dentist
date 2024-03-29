@@ -2,38 +2,46 @@ import axios from 'axios'
 import {createContext, useContext, useEffect, useReducer} from 'react'
 import { reducer } from './reducer/reducer'
 
-const ProductStates = createContext()
+const DentistStates = createContext()
 
-const lsCart = JSON.parse(localStorage.getItem('cart'))
-console.log(lsCart)
+const lsFavs = JSON.parse(localStorage.getItem('favs'))
+console.log(lsFavs)
 const initialState = {
-    cart: lsCart || [], 
+    cart: lsFavs || [], 
     list: [],
-    // theme: "" o "dark"
-    // theme: true o false
+    theme: {
+        value: true, 
+        toggleTheme: ()=> {
+            dispatch({type: 'CHANGE_THEME'})
+        }
 } 
+}
+
 const Context = ({children}) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
     useEffect(() => {
-        axios('https://fakestoreapi.com/products')
+        axios('https://jsonplaceholder.typicode.com/users')
         .then(res => {
             console.log(res.data)
             dispatch({type: 'GET_LIST', payload: res.data})
         })
+        .catch((error) => {
+            console.error('Error fetching users:', error);
+          });
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(state.cart))
-    }, [state.cart])
+        localStorage.setItem('favs', JSON.stringify(state.favs))
+    }, [state.favs])
 
-    return(
-        <ProductStates.Provider value={{state, dispatch}}>
+   return(
+        <DentistStates.Provider value={{state, dispatch}}>
             {children}
-        </ProductStates.Provider>
+        </DentistStates.Provider>
     )
 }
 
 export default Context
 
-export const useProductStates = () => useContext(ProductStates)
+export const useDentistStates = () => useContext(DentistStates)

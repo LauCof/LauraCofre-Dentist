@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../Components/Card'
-import axios from 'axios'
-import { useProductStates } from '../Context'
+import { useDentistStates } from '../Context'
+
 
 const Home = () => {
 
-  const {state} = useProductStates()
+  const {state} = useDentistStates()
 
   return (
     <div>
-        {state.list.map((producto) => <Card key={producto.id} item={producto}/>)}
+        {state.map((dentista) => <Card key={dentista.id} item={dentista}/>)}
     </div>
   )
 }
